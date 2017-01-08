@@ -72,7 +72,6 @@ class Parking
       slots.each do |key, array|
          if plat_no == array["car name"]
             arr = array
-            puts array
          end
       end
       if arr == ""
