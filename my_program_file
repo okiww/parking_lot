@@ -11,6 +11,7 @@ class Parking
    def printSize()
       $num = @size
       puts("Created a parking lot with #$num slots ")
+      puts " "
    end
 
    def parking(plat_no, color)
@@ -33,10 +34,12 @@ class Parking
 
       if $length>$size
          puts ("Sorry, parking lot is full ")
+         puts " "
       else
          slots[$length]= cek
          # puts slots
          puts ("Allocated slot number: #$length")
+         puts " "
          free_slot.clear()
       end
    end
@@ -48,6 +51,7 @@ class Parking
       if $length >= 1
          slots.delete($num)
          puts "Slot number #$num is free"   
+         puts " "
          free_slot.push($num)
       else
          puts "Not Found" 
@@ -64,6 +68,7 @@ class Parking
       for i in 0..arr.length - 1
          puts " "+arr[i]["slot"] + "        | " + arr[i]["car name"] + "     |  " + arr[i]["color"]
          puts " ---------|-----------------|--------"
+         puts " "
       end
    end
 
@@ -78,6 +83,7 @@ class Parking
         puts "not found"
       else
         puts arr["slot"]
+        puts " "
       end
    end
 
@@ -97,6 +103,7 @@ class Parking
             slot_number.push(arr[i]["slot"])
          end
          puts "#{[slot_number].join(",")}"
+         puts " "
       end
    end
    def registrationNumbersCarsWithColour(c)
@@ -117,7 +124,7 @@ class Parking
       end
 
       puts "#{[register_name].join(",")}"
-
+      puts " "
       end
    end
 end
