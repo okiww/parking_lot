@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+puts "create_parking_lot 6" 
+puts "park KA­01­HH­1234 White"
+puts "park KA­01­HH­9999 White" 
+puts "park KA­01­BB­0001 Black" 
+puts "park KA­01­HH­7777 Red" 
+puts "park KA­01­HH­2701 Blue" 
+puts "park KA­01­HH­3141 Black" 
+puts "leave 4" 
+puts "status" 
+puts "park KA­01­P­333 White"
+puts "park DL­12­AA­9999 White" 
+puts "registration_numbers_for_cars_with_colour White"
+puts "slot_numbers_for_cars_with_colour White" 
+puts "slot_number_for_registration_number KA­01­HH­3141" 
+puts "slot_number_for_registration_number MH­04­AY­1111" 
+puts ARGV

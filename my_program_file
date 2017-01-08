@@ -1,0 +1,161 @@
+#!/usr/bin/env ruby
+class Parking
+   attr_accessor :slots, :free_slot
+
+   def initialize(s)
+      @size = s
+      @slots = Hash.new( "slot" )
+      @free_slot = []
+   end
+
+   def printSize()
+      $num = @size
+      puts("Created a parking lot with #$num slots ")
+   end
+
+   def parking(plat_no, color)
+      $plat_no = plat_no
+      $color = color
+      $size = @size
+      $length = slots.length
+      if $length == 0
+         $length = 1
+      elsif free_slot.any?
+         $length = free_slot.at(0)
+      else 
+         $length += 1
+      end
+      cek = {
+           "slot" => "#$length",
+           "car name" => "#$plat_no",
+           "color" => "#$color"
+       }
+
+      if $length>$size
+         puts ("Sorry, parking lot is full ")
+      else
+         slots[$length]= cek
+         # puts slots
+         puts ("Allocated slot number: #$length")
+         free_slot.clear()
+      end
+   end
+
+   def isCarLeaving(c)
+      $num = Integer(c)
+      $size = @size
+      $length = slots.length
+      if $length >= 1
+         slots.delete($num)
+         puts "Slot number #$num is free"   
+         free_slot.push($num)
+      else
+         puts "Not Found" 
+      end
+   end
+
+   def status
+      arr = []
+      slots.each do |key, array|
+          arr.push(array)
+      end
+      puts "Slot No." +" |Registration No. " + "|Color"
+      puts " ---------|-----------------|--------"
+      for i in 0..arr.length - 1
+         puts " "+arr[i]["slot"] + "        | " + arr[i]["car name"] + "     |  " + arr[i]["color"]
+         puts " ---------|-----------------|--------"
+      end
+   end
+
+   def checkPlatNoCars(plat_no)
+      arr = ""
+      slots.each do |key, array|
+         if plat_no == array["car name"]
+            arr = array
+         end
+      end
+      if arr == ""
+        puts "not found"
+      else
+        puts arr["slot"]
+      end
+   end
+
+   def cekColorCars(c)
+      color = c
+      arr = []
+      slots.each do |key, array|
+         if color == array["color"]
+            arr.push(array)
+         end
+      end
+      if arr == []
+      puts "not found"
+      else
+         slot_number = []
+         for i in 0..arr.length - 1
+            slot_number.push(arr[i]["slot"])
+         end
+         puts "#{[slot_number].join(",")}"
+      end
+   end
+   def registrationNumbersCarsWithColour(c)
+      color = c
+      arr = []
+      slots.each do |key, array|
+       if color == array["color"]
+          arr.push(array)
+       end
+      end
+      # p arr
+      if arr == []
+      puts "not found"
+      else
+      register_name = []
+      for i in 0..arr.length - 1
+         register_name.push(arr[i]["car name"])
+      end
+
+      puts "#{[register_name].join(",")}"
+
+      end
+   end
+end
+
+text=File.open("output.txt").read
+text.gsub!(/\r\n?/, "\n")
+arr = []
+text.each_line do |line|
+  arr.push(line)
+end
+val = arr[0]
+a = val.gsub(/\s+/m, ' ').strip.split(" ")
+
+if a.at(0) == "create_parking_lot"
+   park = Parking.new(Integer(a.at(1)))
+   park.printSize()
+
+   $i = 1
+   $n = arr.length
+   while $i <= $n  do
+      val = arr[$i]
+      condition = val.gsub(/\s+/m, ' ').strip.split(" ")
+   
+      if condition.at(0) == 'park'
+         park.parking(condition.at(1), condition.at(2))
+      elsif condition.at(0) == 'leave'
+         park.isCarLeaving(condition.at(1))
+      elsif condition.at(0) == 'slot_number_for_registration_number'
+         park.checkPlatNoCars(condition.at(1))
+      elsif condition.at(0) == 'slot_numbers_for_cars_with_colour'
+         park.cekColorCars(condition.at(1))
+      elsif condition.at(0) == 'registration_numbers_for_cars_with_colour'
+         park.registrationNumbersCarsWithColour(condition.at(1))
+      else
+         park.status()
+      end
+      $i +=1
+   end
+else
+   puts "Wrong input.."
+end
