@@ -72,6 +72,7 @@ class Parking
       slots.each do |key, array|
          if plat_no == array["car name"]
             arr = array
+            puts array
          end
       end
       if arr == ""
@@ -148,8 +149,9 @@ if a.at(0) == "create_parking_lot"
          park.cekColorCars(condition.at(1))
       elsif condition.at(0) == 'registration_numbers_for_cars_with_colour'
          park.registrationNumbersCarsWithColour(condition.at(1))
-      else
+      elsif condition.at(0) == 'status'
          park.status()
+      else
       end
       $i +=1
    end

@@ -90,7 +90,7 @@ class Parking
          end
       end
       if arr == []
-      puts "not found"
+         puts "not found"
       else
          slot_number = []
          for i in 0..arr.length - 1
@@ -109,7 +109,7 @@ class Parking
       end
       # p arr
       if arr == []
-      puts "not found"
+         puts "not found"
       else
       register_name = []
       for i in 0..arr.length - 1
@@ -123,7 +123,6 @@ class Parking
 end
 
 text=File.open("output.txt").read
-text.gsub!(/\r\n?/, "\n")
 arr = []
 text.each_line do |line|
   arr.push(line)
@@ -139,8 +138,9 @@ if a.at(0) == "create_parking_lot"
    $n = arr.length
    while $i <= $n  do
       val = arr[$i]
-      condition = val.gsub(/\s+/m, ' ').strip.split(" ")
-   
+      unless val.nil?
+         condition = val.gsub(/\s+/m, ' ').strip.split(" ")   
+      end
       if condition.at(0) == 'park'
          park.parking(condition.at(1), condition.at(2))
       elsif condition.at(0) == 'leave'
@@ -151,8 +151,9 @@ if a.at(0) == "create_parking_lot"
          park.cekColorCars(condition.at(1))
       elsif condition.at(0) == 'registration_numbers_for_cars_with_colour'
          park.registrationNumbersCarsWithColour(condition.at(1))
-      else
+      elsif condition.at(0) == 'status'
          park.status()
+      else
       end
       $i +=1
    end
